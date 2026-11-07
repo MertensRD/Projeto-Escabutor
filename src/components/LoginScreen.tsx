@@ -35,7 +35,13 @@ export const LoginScreen: React.FC<LoginScreenProps> = ({ onLogin, onRegister })
   };
 
   return (
-    <div className="flex min-h-screen flex-col justify-center bg-stone-900 p-4 sm:p-6 text-stone-100">
+    <div
+      className="flex min-h-[100dvh] flex-col justify-center bg-stone-900 p-4 sm:p-6 text-stone-100"
+      style={{
+        paddingTop: 'calc(max(env(safe-area-inset-top, 0px), 1rem) + 0.5rem)',
+        paddingBottom: 'calc(max(env(safe-area-inset-bottom, 0px), 1rem) + 0.5rem)'
+      }}
+    >
       <div className="mx-auto w-full max-w-sm rounded-3xl border border-stone-800 bg-stone-950 p-6 shadow-2xl">
         {/* Logo and Brand */}
         <div className="text-center mb-6">

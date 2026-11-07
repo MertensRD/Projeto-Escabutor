@@ -425,13 +425,13 @@ export default function App() {
   const unreadMessagesTotal = conversations.reduce((acc, c) => acc + c.unreadCount, 0);
 
   return (
-    <div className="min-h-screen bg-stone-900 text-stone-900 flex justify-center items-start sm:py-6 selection:bg-emerald-200">
+    <div className="h-[100dvh] w-full bg-stone-950 sm:bg-stone-900 text-stone-900 flex justify-center items-center sm:py-6 selection:bg-emerald-200 overflow-hidden">
       {/* Smartphone Frame or Full Responsive Wrapper */}
       <div
-        className={`w-full bg-white transition-all overflow-hidden flex flex-col relative ${
+        className={`w-full bg-white transition-all overflow-hidden flex flex-col relative h-[100dvh] ${
           isSmartphoneFramed
-            ? 'max-w-[430px] sm:rounded-[36px] sm:border-8 sm:border-stone-800 sm:shadow-2xl sm:h-[880px]'
-            : 'max-w-4xl min-h-screen sm:rounded-2xl sm:shadow-xl'
+            ? 'max-w-none sm:max-w-[430px] sm:h-[880px] sm:rounded-[36px] sm:border-8 sm:border-stone-800 sm:shadow-2xl'
+            : 'max-w-4xl sm:h-[92vh] sm:rounded-2xl sm:shadow-xl'
         }`}
       >
         {/* Smartphone Speaker Ear Piece / Island Notch indicator */}
@@ -455,7 +455,7 @@ export default function App() {
         />
 
         {/* Main Content Area */}
-        <main className="flex-1 overflow-hidden relative">
+        <main className="flex-1 min-h-0 overflow-hidden relative flex flex-col">
           {currentTab === 'forum' && (
             <ForumScreen
               posts={forumPosts}

@@ -45,7 +45,7 @@ export const NewBarterItemModal: React.FC<NewBarterItemModalProps> = ({
       title: title.trim(),
       category,
       description: description.trim(),
-      imageUrl: currentEditedPhoto || '/src/assets/images/escambo_sementes_1794017311208.jpg',
+      imageUrl: currentEditedPhoto || '/assets/images/escambo_sementes_1794017311208.jpg',
       acceptsInReturn: acceptsInReturn.trim(),
       quantity: quantity.trim() || '1 lote',
       condition,
@@ -86,7 +86,7 @@ export const NewBarterItemModal: React.FC<NewBarterItemModalProps> = ({
             <div className="flex items-center gap-3">
               <div className="relative h-20 w-24 shrink-0 overflow-hidden rounded-xl border border-stone-200 bg-stone-100">
                 <img
-                  src={currentEditedPhoto || '/src/assets/images/escambo_sementes_1794017311208.jpg'}
+                  src={currentEditedPhoto || '/assets/images/escambo_sementes_1794017311208.jpg'}
                   alt="Prévia do item"
                   className="h-full w-full object-cover"
                 />

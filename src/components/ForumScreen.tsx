@@ -24,6 +24,8 @@ import {
   UserProfile
 } from '../types';
 import { ClimateAlertBanner } from './ClimateAlertBanner';
+import { FarmerAvatar } from './FarmerAvatar';
+import { ItemImage } from './ItemImage';
 
 interface ForumScreenProps {
   posts: ForumPost[];
@@ -171,10 +173,11 @@ export const ForumScreen: React.FC<ForumScreenProps> = ({
       <div className="mx-3 mb-3 rounded-2xl border border-stone-200 bg-white p-3.5 shadow-xs">
         <form onSubmit={handlePostSubmit}>
           <div className="flex items-start gap-3 mb-2.5">
-            <img
+            <FarmerAvatar
               src={currentUser.avatarUrl}
               alt={currentUser.name}
-              className="h-10 w-10 rounded-full object-cover border border-emerald-700 shrink-0"
+              size="md"
+              className="border border-emerald-700"
             />
             <div className="flex-1">
               <textarea
@@ -190,7 +193,7 @@ export const ForumScreen: React.FC<ForumScreenProps> = ({
           {/* Attached Photo Preview if any */}
           {attachedPhotoUrl && (
             <div className="relative mb-2.5 max-h-48 overflow-hidden rounded-xl border border-stone-200">
-              <img
+              <ItemImage
                 src={attachedPhotoUrl}
                 alt="Foto anexada"
                 className="h-44 w-full object-cover"
@@ -262,10 +265,11 @@ export const ForumScreen: React.FC<ForumScreenProps> = ({
               {/* Post Header */}
               <div className="flex items-start justify-between gap-2">
                 <div className="flex items-center gap-3">
-                  <img
+                  <FarmerAvatar
                     src={post.authorAvatar}
                     alt={post.authorName}
-                    className="h-10 w-10 rounded-full object-cover border border-emerald-700"
+                    size="md"
+                    className="border border-emerald-700"
                   />
                   <div>
                     <div className="flex items-center gap-1.5">
@@ -297,7 +301,7 @@ export const ForumScreen: React.FC<ForumScreenProps> = ({
               {/* Post Image */}
               {post.imageUrl && (
                 <div className="mt-3 overflow-hidden rounded-xl border border-stone-200 bg-stone-100">
-                  <img
+                  <ItemImage
                     src={post.imageUrl}
                     alt="Foto da publicação"
                     className="max-h-72 w-full object-cover"
@@ -337,10 +341,11 @@ export const ForumScreen: React.FC<ForumScreenProps> = ({
                 <div className="mt-3 space-y-2.5 border-t border-stone-100 pt-3">
                   {post.comments.map((c) => (
                     <div key={c.id} className="flex items-start gap-2.5 rounded-xl bg-stone-50 p-2.5 text-xs">
-                      <img
+                      <FarmerAvatar
                         src={c.authorAvatar}
                         alt={c.authorName}
-                        className="h-7 w-7 rounded-full object-cover border border-emerald-600 shrink-0"
+                        size="sm"
+                        className="border border-emerald-600 shrink-0"
                       />
                       <div className="flex-1">
                         <div className="flex items-center justify-between">

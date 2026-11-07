@@ -28,6 +28,9 @@ export const BottomNav: React.FC<BottomNavProps> = ({
   return (
     <nav
       className="sticky bottom-0 z-30 w-full border-t border-stone-200 bg-white/95 backdrop-blur-md shadow-lg shrink-0"
+      style={{
+        paddingBottom: 'max(env(safe-area-inset-bottom, 0px), 0.5rem)'
+      }}
       aria-label="Navegação Principal"
     >
       <div className="mx-auto flex h-16 w-full max-w-md items-center justify-around px-2">

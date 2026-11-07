@@ -21,6 +21,8 @@ import {
   LogOut
 } from 'lucide-react';
 import { UserProfile, NeighborReview, BarterItem } from '../types';
+import { FarmerAvatar } from './FarmerAvatar';
+import { ItemImage } from './ItemImage';
 
 interface ProfileScreenProps {
   currentUser: UserProfile;
@@ -104,10 +106,11 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({
 
         <div className="flex items-center gap-4">
           <div className="relative">
-            <img
-              src={currentUser.avatarUrl}
-              alt={currentUser.name}
-              className="h-20 w-20 rounded-full border-3 border-white object-cover shadow-md"
+            <FarmerAvatar
+              name={currentUser.name}
+              avatarUrl={currentUser.avatarUrl}
+              size="lg"
+              className="h-20 w-20 rounded-full border-3 border-white shadow-md text-xl"
             />
             {!isPreviewPublic && (
               <button
@@ -330,7 +333,7 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({
                   key={item.id}
                   className="flex items-center gap-3 rounded-xl border border-stone-100 bg-stone-50 p-2.5"
                 >
-                  <img
+                  <ItemImage
                     src={item.imageUrl}
                     alt={item.title}
                     className="h-12 w-12 rounded-lg object-cover border border-stone-200 shrink-0"
@@ -362,10 +365,11 @@ export const ProfileScreen: React.FC<ProfileScreenProps> = ({
               <div key={rev.id} className="rounded-xl border border-stone-100 bg-stone-50/80 p-3 text-xs">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <img
-                      src={rev.authorAvatar}
-                      alt={rev.authorName}
-                      className="h-8 w-8 rounded-full object-cover border border-emerald-600"
+                    <FarmerAvatar
+                      name={rev.authorName}
+                      avatarUrl={rev.authorAvatar}
+                      size="sm"
+                      className="h-8 w-8 border border-emerald-600 shrink-0"
                     />
                     <div>
                       <div className="font-bold text-stone-900">{rev.authorName}</div>

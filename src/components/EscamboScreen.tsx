@@ -20,6 +20,8 @@ import {
 } from 'lucide-react';
 import { BarterItem, UserProfile } from '../types';
 import { filterBarterItems } from '../utils/escamboRules';
+import { FarmerAvatar } from './FarmerAvatar';
+import { ItemImage } from './ItemImage';
 
 interface EscamboScreenProps {
   items: BarterItem[];
@@ -186,7 +188,7 @@ export const EscamboScreen: React.FC<EscamboScreenProps> = ({
                 <div className="flex flex-col sm:flex-row">
                   {/* Photo Container */}
                   <div className="relative h-44 sm:h-auto sm:w-48 shrink-0 bg-stone-100 overflow-hidden">
-                    <img
+                    <ItemImage
                       src={item.imageUrl}
                       alt={item.title}
                       className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
@@ -204,10 +206,11 @@ export const EscamboScreen: React.FC<EscamboScreenProps> = ({
                       {/* Farmer info header */}
                       <div className="flex items-center justify-between gap-2 mb-1.5">
                         <div className="flex items-center gap-2">
-                          <img
+                          <FarmerAvatar
                             src={item.userAvatar}
                             alt={item.userName}
-                            className="h-6 w-6 rounded-full object-cover border border-emerald-600"
+                            size="xs"
+                            className="border border-emerald-600"
                           />
                           <span className="text-xs font-semibold text-stone-800">{item.userName}</span>
                         </div>

@@ -1,0 +1,27 @@
+{
+  "id": "/",
+  "name": "Escambutor - Agricultura Sustentável",
+  "short_name": "Escambutor",
+  "description": "Rede de escambo, alertas climáticos e comunidade colaborativa para pequenos agricultores rurais.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#1b4332",
+  "background_color": "#1c1917",
+  "categories": ["business", "social", "productivity"],
+  "icons": [
+    {
+      "src": "/assets/images/farmer_joao_avatar_1794017308636.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/images/farmer_joao_avatar_1794017308636.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}

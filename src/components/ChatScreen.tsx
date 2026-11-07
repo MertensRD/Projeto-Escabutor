@@ -6,6 +6,7 @@
 import React, { useState } from 'react';
 import { ArrowLeft, Send, CheckCircle2, XCircle, ArrowLeftRight, Clock, Star, AlertCircle, Shield } from 'lucide-react';
 import { Conversation, TradeProposal, UserProfile } from '../types';
+import { FarmerAvatar } from './FarmerAvatar';
 
 interface ChatScreenProps {
   conversations: Conversation[];
@@ -65,10 +66,11 @@ export const ChatScreen: React.FC<ChatScreenProps> = ({
                 className="flex w-full items-center gap-3.5 rounded-xl bg-white p-3.5 text-left shadow-xs transition-all hover:bg-stone-50 mb-1.5"
               >
                 <div className="relative shrink-0">
-                  <img
+                  <FarmerAvatar
                     src={conv.participantAvatar}
                     alt={conv.participantName}
-                    className="h-13 w-13 rounded-full object-cover border-2 border-emerald-700"
+                    size="lg"
+                    className="border-2 border-emerald-700"
                   />
                   {conv.unreadCount > 0 && (
                     <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-emerald-600 text-[10px] font-bold text-white shadow-xs">
@@ -126,10 +128,11 @@ export const ChatScreen: React.FC<ChatScreenProps> = ({
           <ArrowLeft className="h-5 w-5" />
         </button>
 
-        <img
+        <FarmerAvatar
           src={activeConv.participantAvatar}
           alt={activeConv.participantName}
-          className="h-10 w-10 rounded-full object-cover border border-emerald-700 shrink-0"
+          size="md"
+          className="border border-emerald-700 shrink-0"
         />
 
         <div className="min-w-0 flex-1">

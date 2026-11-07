@@ -14,11 +14,11 @@ interface PhotoEditorModalProps {
 }
 
 const PRESET_PHOTOS = [
-  { label: 'Minhas Sementes', url: '/src/assets/images/escambo_sementes_1794017311208.jpg' },
-  { label: 'Pulverizador', url: '/src/assets/images/escambo_pulverizador_1794017311348.jpg' },
-  { label: 'Estufa & Horta', url: '/src/assets/images/farmer_maria_avatar_1794017310176.jpg' },
-  { label: 'Milho & Roça', url: '/src/assets/images/farmer_joao_avatar_1794017308636.jpg' },
-  { label: 'Cafezal & Sítio', url: '/src/assets/images/farmer_antonio_avatar_1794017309678.jpg' }
+  { label: 'Minhas Sementes', url: '/assets/images/escambo_sementes_1794017311208.jpg' },
+  { label: 'Pulverizador', url: '/assets/images/escambo_pulverizador_1794017311348.jpg' },
+  { label: 'Estufa & Horta', url: '/assets/images/farmer_maria_avatar_1794017310176.jpg' },
+  { label: 'Milho & Roça', url: '/assets/images/farmer_joao_avatar_1794017308636.jpg' },
+  { label: 'Cafezal & Sítio', url: '/assets/images/farmer_antonio_avatar_1794017309678.jpg' }
 ];
 
 const FILTERS = [

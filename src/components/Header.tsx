@@ -40,7 +40,13 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-40 flex items-center justify-between gap-4 border-b border-emerald-900/10 bg-emerald-800 px-4 py-3 text-white shadow-xs">
+    <header
+      className="sticky top-0 z-40 flex items-center justify-between gap-4 border-b border-emerald-900/10 bg-emerald-800 px-4 text-white shadow-xs shrink-0"
+      style={{
+        paddingTop: 'calc(max(env(safe-area-inset-top, 0px), 1.75rem) + 0.25rem)',
+        paddingBottom: '0.75rem'
+      }}
+    >
       {/* Zone 1: Brand Wordmark */}
       <div className="flex items-center gap-2 shrink-0">
         <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-700/80 text-emerald-200">
