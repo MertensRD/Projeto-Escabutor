@@ -1,0 +1,6 @@
+{
+  "name": "Escambutor - Rede de Escambo & Comunidade Agrícola Sustentável",
+  "description": "Aplicativo mobile de trocas (escambo), avisos climáticos e comunidade colaborativa para pequenos agricultores rurais.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

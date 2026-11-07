@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+    <title>Escambutor</title>
+    <style>
+        :root {
+            --primary-color: #2e7d32;
+            --bg-color: #f4f4f9;
+            --text-color: #333;
+        }
+        body { margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg-color); color: var(--text-color); }
+        
+        /* Navegação e Estrutura */
+        .screen { display: none; padding: 20px; padding-bottom: 80px; }
+        .screen.active { display: block; animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        .header { display: none; background: var(--primary-color); color: white; padding: 15px; text-align: center; font-size: 1.2em; font-weight: bold; position: sticky; top: 0; z-index: 10; }
+        
+        .nav-bar { display: none; position: fixed; bottom: 0; width: 100%; background: white; box-shadow: 0 -2px 5px rgba(0,0,0,0.1); z-index: 10; }
+        .nav-item { flex: 1; text-align: center; padding: 15px 0; color: #666; font-size: 14px; cursor: pointer; }
+        .nav-item.active { color: var(--primary-color); font-weight: bold; border-top: 3px solid var(--primary-color); }
+
+        /* Elementos de Interface */
+        .card { background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        .alert { background: #fff3cd; color: #856404; border-left: 5px solid #ffeeba; padding: 15px; margin-bottom: 15px; border-radius: 4px; }
+        .badge { background: #e8f5e9; color: var(--primary-color); padding: 3px 8px; border-radius: 12px; font-size: 12px; }
+        .badge.blue { background: #e3f2fd; color: #1565c0; }
+        
+        input, select, textarea { width: 100%; padding: 12px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; }
+        button { width: 100%; background: var(--primary-color); color: white; border: none; padding: 14px; border-radius: 6px; font-size: 16px; cursor: pointer; margin-bottom: 10px; }
+        button.secondary { background: #fff; color: var(--primary-color); border: 1px solid var(--primary-color); }
+        button.danger { background: #fff; color: #d32f2f; border: 1px solid #d32f2f; }
+        
+        .flex-row { display: flex; gap: 10px; align-items: center; justify-content: space-between; }
+        .chat-msg { border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 10px; cursor: pointer; }
+
+        /* Tela de Login Específica */
+        .login-container { display: flex; flex-direction: column; justify-content: center; height: 100vh; padding: 20px; box-sizing: border-box; background: var(--primary-color); }
+        .login-box { background: white; padding: 20px; border-radius: 12px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .login-logo { font-size: 2em; color: var(--primary-color); font-weight: bold; margin-bottom: 20px; }
+
+        /* Seletor de Comunidades */
+        .community-selector { width: auto; flex: 1; margin-bottom: 0; padding: 8px; font-size: 14px; border-color: var(--primary-color); color: var(--primary-color); font-weight: bold; background-color: #e8f5e9; }
+
+        /* Estilos do Chat Ativo */
+        .msg-bubble { max-width: 75%; padding: 10px 15px; border-radius: 15px; font-size: 14px; line-height: 1.4; }
+        .msg-received { background: #e0e0e0; align-self: flex-start; border-bottom-left-radius: 2px; }
+        .msg-sent { background: var(--primary-color); color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
+        .chat-input-area { position: fixed; bottom: 53px; left: 0; right: 0; padding: 10px; background: white; border-top: 1px solid #ddd; display: flex; gap: 10px; z-index: 5; }
+    </style>
+</head>
+<body>
+
+    <!-- Cabeçalho Global -->
+    <div class="header" id="app-header">Escambutor</div>
+
+    <!-- TELA 0: Login -->
+    <div id="view-login" class="screen active" style="padding: 0;">
+        <div class="login-container">
+            <div class="login-box">
+                <div class="login-logo">🌿 Escambutor</div>
+                <p style="color: #666; margin-bottom: 20px;">Comunidade de troca para pequenos agricultores</p>
+                <input type="text" placeholder="E-mail ou Telefone">
+                <input type="password" placeholder="Senha">
+                <button onclick="efetuarLogin()">Entrar</button>
+                <button class="secondary" onclick="irParaCadastro()">Criar Nova Conta</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TELA 1: Cadastro e Perfil -->
+    <div id="view-perfil" class="screen">
+        <h3>Meu Perfil</h3>
+        <div class="card">
+            <input type="text" placeholder="Nome Completo" value="João Silva">
+            <input type="text" placeholder="Localização Geográfica" value="Sítio Boa Vista, Zona Rural">
+            <textarea placeholder="O que você produz?" rows="3">Milho e Feijão</textarea>
+            <button>Salvar Perfil</button>
+            <button class="secondary danger">Excluir Conta</button>
+        </div>
+
+        <h3>Histórico e Avaliações</h3>
+        <div class="card">
+            <p><strong>Avaliação Média:</strong> ⭐⭐⭐⭐⭐ (5 Recomendações)</p>
+            <hr style="border:0; border-top:1px solid #eee; margin: 10px 0;">
+            <p><strong>Troca Concluída:</strong> Sementes de Milho por Enxada (com Sr. Antônio)</p>
+            <button class="secondary">Avaliar Vizinho</button>
+        </div>
+    </div>
+
+    <!-- TELA 2: Fórum e Comunidade -->
+    <div id="view-forum" class="screen">
+        <div class="alert">
+            <strong>⚠️ Alerta Climático:</strong> Previsão de geada forte para a próxima madrugada. Proteja suas mudas. 
+            <br><a href="#" style="font-size: 12px; color: #856404;">[Entendido / Fechar]</a>
+        </div>
+
+        <div class="card">
+            <textarea placeholder="Tem uma dúvida rural ou dica? Compartilhe..." rows="3"></textarea>
+            <button class="flex-row" style="justify-content: center;">📷 Adicionar Foto/Vídeo e Publicar</button>
+        </div>
+
+        <div class="flex-row" style="margin-bottom: 10px;">
+            <h3 style="margin: 0; white-space: nowrap;">Mural:</h3>
+            <select class="community-selector" id="community-select" onchange="atualizarMural()">
+                <option value="soja" selected>Cultivadores de Soja</option>
+                <option value="geral">Geral (Minha Região)</option>
+            </select>
+        </div>
+        
+        <button class="secondary" style="margin-bottom: 15px; font-size: 14px;">➕ Criar/Ingressar em Nova Comunidade</button>
+        <div id="forum-posts"></div>
+    </div>
+
+    <!-- TELA 3: Escambo -->
+    <div id="view-escambo" class="screen">
+        <h3>Buscar na Região</h3>
+        <div class="card">
+            <div class="flex-row">
+                <input type="text" placeholder="Buscar ferramentas..." style="margin-bottom: 0;">
+                <select style="width: auto; margin-bottom: 0;">
+                    <option>Até 10km</option>
+                </select>
+            </div>
+        </div>
+
+        <h3 style="margin-top: 20px;">Resultados da Busca</h3>
+        <div class="card flex-row">
+            <div>
+                <strong>Bomba de Pulverização (Costal)</strong><br>
+                <span class="badge">Equipamento</span> <span style="font-size: 12px; color: #666;">2km de distância</span>
+            </div>
+            <button style="width: auto; padding: 10px;">Negociar</button>
+        </div>
+
+        <hr style="border:0; border-top:2px dashed #ccc; margin: 25px 0;">
+
+        <h3>Meus Itens Cadastrados</h3>
+        <div class="card flex-row">
+            <div>
+                <strong>Sementes de Feijão (10kg)</strong><br>
+                <span class="badge blue">Produto</span>
+            </div>
+            <button class="secondary danger" style="width: auto; padding: 10px;">Remover</button>
+        </div>
+
+        <button class="secondary" style="margin-top: 15px;">+ Cadastrar Novo Item para Escambo</button>
+    </div>
+
+    <!-- TELA 4: Chat Privado (Lista de Conversas) -->
+    <div id="view-chat-list" class="screen">
+        <h3>Mensagens e Negociações</h3>
+        <div class="card chat-msg flex-row" onclick="abrirChat('antonio')">
+            <div>
+                <strong>Antônio Carlos</strong><br>
+                <span style="font-size: 14px; color: #666;">Aceita trocar o adubo por 2 horas de...</span>
+            </div>
+            <span class="badge">Novo</span>
+        </div>
+        <div class="card chat-msg flex-row" onclick="abrirChat('jose')">
+            <div>
+                <strong>José Pedro</strong><br>
+                <span style="font-size: 14px; color: #666;">Combinado! Passo aí amanhã de manhã.</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- TELA 4.1: Chat Privado (Janela Ativa) -->
+    <div id="view-chat-active" class="screen" style="padding-bottom: 120px;">
+        <div class="flex-row" style="margin-bottom: 20px;">
+            <button class="secondary" style="width: auto; padding: 5px 15px; margin-bottom: 0;" onclick="voltarParaListaChat()">⬅ Voltar</button>
+            <h3 style="margin: 0; text-align: center; flex: 1;" id="chat-active-name">Nome</h3>
+            <div style="width: 60px;"></div> <!-- Espaçador para centralizar o título -->
+        </div>
+        
+        <div id="chat-messages-container" style="display: flex; flex-direction: column; gap: 10px;">
+            <!-- As mensagens serão injetadas aqui -->
+        </div>
+
+        <div class="chat-input-area">
+            <input type="text" placeholder="Escreva sua mensagem..." style="margin-bottom: 0; flex: 1;">
+            <button style="width: auto; padding: 10px 20px; margin-bottom: 0;">Enviar</button>
+        </div>
+    </div>
+
+    <!-- Barra de Navegação Inferior -->
+    <div class="nav-bar" id="app-nav">
+        <div class="nav-item" id="nav-perfil" onclick="nav('view-perfil', 'Meu Perfil', this)">Perfil</div>
+        <div class="nav-item" id="nav-forum" onclick="nav('view-forum', 'Comunidade', this)">Fórum</div>
+        <div class="nav-item" id="nav-escambo" onclick="nav('view-escambo', 'Trocas', this)">Trocas</div>
+        <div class="nav-item" id="nav-chat" onclick="nav('view-chat-list', 'Chat', this)">Chat</div>
+    </div>
+
+    <script>
+        // Dados do Mural
+        const mensagensComunidade = {
+            soja: `<div class="card"><strong>Maria Oliveira</strong> <span style="color: #888; font-size: 12px;">(A 5km daqui)</span><p>Alguém sabe como combater a praga lagarta-do-cartucho?</p><button class="secondary">Responder</button></div>`,
+            geral: `<div class="card"><strong>João Pedro</strong> <span style="color: #888; font-size: 12px;">(A 12km daqui)</span><p>Alguém tem indicação de frete com preço justo?</p><button class="secondary">Responder</button></div>`
+        };
+
+        function atualizarMural() {
+            const select = document.getElementById('community-select');
+            document.getElementById('forum-posts').innerHTML = mensagensComunidade[select.value];
+        }
+        window.onload = atualizarMural;
+
+        // Lógica de Login
+        function efetuarLogin() {
+            document.getElementById('app-header').style.display = 'block';
+            document.getElementById('app-nav').style.display = 'flex';
+            nav('view-forum', 'Comunidade', document.getElementById('nav-forum'));
+        }
+        function irParaCadastro() {
+            document.getElementById('app-header').style.display = 'block';
+            document.getElementById('app-nav').style.display = 'flex';
+            nav('view-perfil', 'Meu Perfil', document.getElementById('nav-perfil'));
+        }
+
+        // Lógica do Chat
+        const historicoChats = {
+            antonio: {
+                nome: "Antônio Carlos",
+                mensagens: [
+                    { tipo: 'received', texto: 'Olá João! Vi no escambo que você tem sacos de adubo sobrando.' },
+                    { tipo: 'sent', texto: 'Bom dia Antônio! Tenho sim, uns 3 sacos de 50kg.' },
+                    { tipo: 'received', texto: 'Aceita trocar o adubo por 2 horas de serviço de trator?' }
+                ]
+            },
+            jose: {
+                nome: "José Pedro",
+                mensagens: [
+                    { tipo: 'received', texto: 'Boa tarde vizinho. A enxada que você anunciou ainda tá disponível?' },
+                    { tipo: 'sent', texto: 'Boa tarde Zé! Tá sim, separei ela pra você.' },
+                    { tipo: 'received', texto: 'Combinado! Passo aí amanhã de manhã.' }
+                ]
+            }
+        };
+
+        function abrirChat(id) {
+            // Oculta todas as telas
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            // Mostra a tela de chat ativo
+            document.getElementById('view-chat-active').classList.add('active');
+            
+            const chat = historicoChats[id];
+            document.getElementById('chat-active-name').innerText = chat.nome;
+            document.getElementById('app-header').innerText = "Negociação Privada";
+            
+            const container = document.getElementById('chat-messages-container');
+            container.innerHTML = chat.mensagens.map(m => `
+                <div class="msg-bubble msg-${m.tipo}">
+                    ${m.texto}
+                </div>
+            `).join('');
+        }
+
+        function voltarParaListaChat() {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById('view-chat-list').classList.add('active');
+            document.getElementById('app-header').innerText = "Chat";
+        }
+
+        // Navegação Padrão
+        function nav(screenId, title, element) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            
+            document.getElementById(screenId).classList.add('active');
+            if (element) element.classList.add('active');
+            
+            document.getElementById('app-header').innerText = title;
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
